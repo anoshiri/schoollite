@@ -23,7 +23,31 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('first_name'),
+
+	            Forms\Components\TextInput::make('last_name'),
+
+	            Forms\Components\Radio::make('gender')
+                    ->options([
+                        'male' => 'Male',
+                        'female' => 'Female'
+                    ]),
+
+	            Forms\Components\TextInput::make('date_of_birth')
+                    ->date(),
+
+	            Forms\Components\TextInput::make('email')
+                    ->email(),
+
+	            Forms\Components\TextInput::make('street'),
+
+	            Forms\Components\TextInput::make('city'),
+
+	            Forms\Components\TextInput::make('state'),
+
+	            Forms\Components\Boolean::make('status'),
+
+
             ]);
     }
 
@@ -31,7 +55,25 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Forms\Components\TextInput::make('first_name'),
+
+	            Forms\Components\TextInput::make('last_name'),
+                
+	            Forms\Components\Radio::make('gender')
+                    ->options([
+                        'male' => 'Male',
+                        'female' => 'Female'
+                    ]),
+
+	            Forms\Components\TextInput::make('date_of_birth')
+                    ->date(),
+
+	            Forms\Components\TextInput::make('email')
+                    ->email(),
+
+	            Forms\Components\TextInput::make('street'),
+
+	            Forms\Components\TextInput::make('city'),
             ])
             ->filters([
                 //
