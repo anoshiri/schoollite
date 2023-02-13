@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GradeResource\Pages;
-use App\Filament\Resources\GradeResource\RelationManagers;
-use App\Models\Grade;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
 use Filament\Tables;
+use App\Models\Grade;
+use App\Models\Teacher;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\GradeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\GradeResource\RelationManagers;
 
 class GradeResource extends Resource
 {
@@ -23,7 +24,13 @@ class GradeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name'),
+
+	            Forms\Components\TextInput::make('description'),
+
+	            Forms\Components\Select::make('teacher_id')
+                    ->label('Grade Teacher')
+                    ->options(Teacher::isActive()->pluck('full_name', 'id')),
             ]);
     }
 
@@ -31,7 +38,10 @@ class GradeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name'),
+
+                Tables\Columns\TextColumn::make('teacher.fullName')
+                    ->label('Grade Teacher'),
             ])
             ->filters([
                 //

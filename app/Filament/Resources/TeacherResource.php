@@ -31,7 +31,11 @@ class TeacherResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('fullName'),
+
+	            Tables\Columns\TextColumn::make('birth_day'),
+
+	            Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([
                 //

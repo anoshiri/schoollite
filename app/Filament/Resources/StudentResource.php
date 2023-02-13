@@ -55,25 +55,11 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                Forms\Components\TextInput::make('first_name'),
+                Tables\Columns\TextColumn::make('fullName'),
 
-	            Forms\Components\TextInput::make('last_name'),
-                
-	            Forms\Components\Radio::make('gender')
-                    ->options([
-                        'male' => 'Male',
-                        'female' => 'Female'
-                    ]),
+	            Tables\Columns\TextColumn::make('birth_day'),
 
-	            Forms\Components\TextInput::make('date_of_birth')
-                    ->date(),
-
-	            Forms\Components\TextInput::make('email')
-                    ->email(),
-
-	            Forms\Components\TextInput::make('street'),
-
-	            Forms\Components\TextInput::make('city'),
+	            Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([
                 //

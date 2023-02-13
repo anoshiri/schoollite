@@ -1,6 +1,6 @@
 ## About School Lite
 
-School Lite is a simple grade school management system targeted at Nigerian schools. It's features will include the following:
+School Lite is a simple grade school management system targeted at grade schools. It's features will include the following:
 
 - ** Students record**
 - ** Teachers**
