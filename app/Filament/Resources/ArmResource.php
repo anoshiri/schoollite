@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TeacherResource\Pages;
-use App\Filament\Resources\TeacherResource\RelationManagers;
-use App\Models\Teacher;
+use App\Filament\Resources\ArmResource\Pages;
+use App\Filament\Resources\ArmResource\RelationManagers;
+use App\Models\Arm;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TeacherResource extends Resource
+class ArmResource extends Resource
 {
-    protected static ?string $model = Teacher::class;
+    protected static ?string $model = Arm::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -23,7 +23,13 @@ class TeacherResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name'),
+
+	            Forms\Components\TextInput::make('description'),
+
+	            Forms\Components\Select::make('grade_id')
+                    ->label('Grade')
+                    ->options(Grade::isActive()->pluck('name', 'id')),
             ]);
     }
 
@@ -31,13 +37,10 @@ class TeacherResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('fullName'),
+                Tables\Columns\TextColumn::make('name'),
 
-	            Tables\Columns\TextColumn::make('birth_day'),
-
-                Tables\Columns\TextColumn::make('age'),
-
-	            Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('grade.name')
+                    ->label('Grade'),
             ])
             ->filters([
                 //
@@ -60,9 +63,9 @@ class TeacherResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTeachers::route('/'),
-            'create' => Pages\CreateTeacher::route('/create'),
-            'edit' => Pages\EditTeacher::route('/{record}/edit'),
+            'index' => Pages\ListArms::route('/'),
+            'create' => Pages\CreateArm::route('/create'),
+            'edit' => Pages\EditArm::route('/{record}/edit'),
         ];
-    }    
+    }
 }

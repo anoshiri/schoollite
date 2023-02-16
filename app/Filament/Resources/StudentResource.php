@@ -59,6 +59,8 @@ class StudentResource extends Resource
 
 	            Tables\Columns\TextColumn::make('birth_day'),
 
+                Tables\Columns\TextColumn::make('age'),
+
 	            Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([

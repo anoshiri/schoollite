@@ -23,13 +23,12 @@ class DatabaseSeeder extends Seeder
         $user = User::first();
         $user->update(['email' => 'admin@admin.com']);
 
-
         Teacher::factory(10)->create()->each(function ($teacher) {
             $teacher->grades()->saveMany(Grade::factory(3)->make());
         });
 
-        Student::factory(50)->create()->each(function ($student) {
-            $student->grades()->attach(Grade::all()->random(3)->pluck('id')->toArray());
-        });
+        // Student::factory(50)->create()->each(function ($student) {
+        //     $student->arm()->attach(Arm::all()->random(3)->pluck('id')->toArray());
+        // });
     }
 }

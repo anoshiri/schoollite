@@ -22,7 +22,12 @@ class Grade extends Model
     
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'student_grade');
+        return $this->belongsToMany(Student::class, 'arm_student');
+    }
+
+    public function arms()
+    {
+        return $this->hasMany(Arm::class);
     }
 }
 

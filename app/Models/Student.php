@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,11 +23,22 @@ class Student extends Model
         'status',
     ];
 
+    protected $casts = [
+        'date_of_birth' => 'date'
+    ];
+
     
     public function grades()
     {
-        return $this->belongsToMany(Grade::class, 'student_grade');
+        return $this->belongsToMany(Grade::class, 'arm_student');
     }
+
+
+    public function arm()
+    {
+        return $this->belongsToThrough(Arm::class, Grade::class);
+    }
+
 
     /**
      * Interact with the user's first name.
@@ -49,6 +61,18 @@ class Student extends Model
     {
         return Attribute::make(
             get: fn ($value, $attributes) => date('d M', $attributes['date_of_birth']),
+        );
+    }
+
+    /**
+     * Interact with the user's first name.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function age(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => Carbon::parse($attributes['date_of_birth'])->diffInYears(),
         );
     }
 }
