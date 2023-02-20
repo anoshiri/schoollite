@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Arm;
 use App\Models\User;
 use App\Models\Grade;
 use App\Models\Student;
@@ -28,12 +29,15 @@ class DatabaseSeeder extends Seeder
         $user->update(['email' => 'admin@admin.com']);
 
         Teacher::factory(10)->create()->each(function ($teacher) {
-            $teacher->grades()->saveMany(Grade::factory(3)->make());
+            $teacher->grades()->saveMany(Grade::factory(3)->make()->each(function ($grade) {
+                $grade->arms()->saveMany(Arm::factory(3)->make());
+            }));
         });
 
-        // Student::factory(50)->create()->each(function ($student) {
-        //     $student->arm()->attach(Arm::all()->random(3)->pluck('id')->toArray());
-        // });
+
+        Student::factory(50)->create()->each(function ($student) {
+            $student->arms()->has(Arm::factory(3)->create());
+        });
 
         SchoolSession::factory()->count(10)->create();
         SessionTerm::factory()->count(50)->create();

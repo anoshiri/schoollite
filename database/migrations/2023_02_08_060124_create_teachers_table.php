@@ -23,6 +23,7 @@ class CreateTeachersTable extends Migration
             $table->string('street')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->text('photos')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

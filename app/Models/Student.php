@@ -27,16 +27,22 @@ class Student extends Model
         'date_of_birth' => 'date'
     ];
 
-    
+
     public function grades()
     {
         return $this->belongsToMany(Grade::class, 'arm_student');
     }
 
 
-    public function arm()
+    public function arms()
     {
-        return $this->belongsToThrough(Arm::class, Grade::class);
+        return $this->hasManyThrough(Arm::class, Grade::class);
+    }
+
+    
+    public function currentArm()
+    {
+        return $this->belongsTo(Arm::class, 'current_arm_id');
     }
 
 

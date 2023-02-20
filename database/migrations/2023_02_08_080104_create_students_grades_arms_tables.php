@@ -20,9 +20,11 @@ class CreateStudentsGradesArmsTables extends Migration
             $table->string('gender');
             $table->date('date_of_birth')->nullable();
             $table->string('email')->unique();
+            $table->foreignId('current_arm_id')->nullable();
             $table->string('street')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
+            $table->text('photos')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

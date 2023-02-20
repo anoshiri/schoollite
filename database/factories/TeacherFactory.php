@@ -21,6 +21,7 @@ class TeacherFactory extends Factory
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'gender' => fake()->randomElement(['male', 'female']),
+            'date_of_birth' => fake()->date(),
         ];
     }
 }
