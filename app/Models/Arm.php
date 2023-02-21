@@ -24,6 +24,6 @@ class Arm extends Pivot
 
     public function students()
     {
-        return $this->hasManyThrough(Student::class, Grade::class);
+        return $this->belongsToMany(Student::class, 'arm_student', 'arm_id', 'student_id');
     }
 }

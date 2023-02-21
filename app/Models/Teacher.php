@@ -22,6 +22,7 @@ class Teacher extends Model
         'status',
     ];
 
+    
     public function grades()
     {
         return $this->hasMany(Grade::class);

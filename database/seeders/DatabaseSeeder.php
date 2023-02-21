@@ -29,14 +29,11 @@ class DatabaseSeeder extends Seeder
         $user->update(['email' => 'admin@admin.com']);
 
         Teacher::factory(10)->create()->each(function ($teacher) {
-            $teacher->grades()->saveMany(Grade::factory(3)->make()->each(function ($grade) {
-                $grade->arms()->saveMany(Arm::factory(3)->make());
-            }));
-        });
-
-
-        Student::factory(50)->create()->each(function ($student) {
-            $student->arms()->has(Arm::factory(3)->create());
+            $teacher->grades()->saveMany(Grade::factory(6)->make())->each(function ($grade) {
+                $grade->arms()->saveMany(Arm::factory(3)->make())->each(function ($arm) {
+                    $arm->students()->saveMany(Student::factory(15)->create());
+                });
+            });
         });
 
         SchoolSession::factory()->count(10)->create();

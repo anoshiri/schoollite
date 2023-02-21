@@ -30,16 +30,16 @@ class Student extends Model
 
     public function grades()
     {
-        return $this->belongsToMany(Grade::class, 'arm_student');
+        return $this->belongsToMany(Grade::class);
     }
 
 
     public function arms()
     {
-        return $this->hasManyThrough(Arm::class, Grade::class);
+        return $this->belongsToMany(Arm::class, 'arm_student', 'student_id', 'arm_id');
     }
 
-    
+
     public function currentArm()
     {
         return $this->belongsTo(Arm::class, 'current_arm_id');
