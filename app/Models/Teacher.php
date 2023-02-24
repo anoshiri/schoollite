@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,10 +23,14 @@ class Teacher extends Model
         'status',
     ];
 
+    protected $casts = [
+        'photos' => 'array',
+    ];
+
     
-    public function grades()
+    public function arms()
     {
-        return $this->hasMany(Grade::class);
+        return $this->hasMany(Arm::class);
     }
 
     /**
@@ -48,7 +53,7 @@ class Teacher extends Model
     protected function birthDay(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => date('d M', $attributes['date_of_birth']),
+            get: fn ($value, $attributes) => Carbon::parse($attributes['date_of_birth'])->format('M d'),
         );
     }
 }

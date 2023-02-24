@@ -23,23 +23,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // make and modify users
         User::factory(10)->create();
+
 
         $user = User::first();
         $user->update(['email' => 'admin@admin.com']);
 
-        Teacher::factory(10)->create()->each(function ($teacher) {
-            $teacher->grades()->saveMany(Grade::factory(6)->make())->each(function ($grade) {
-                $grade->arms()->saveMany(Arm::factory(3)->make())->each(function ($arm) {
-                    $arm->students()->saveMany(Student::factory(15)->create());
-                });
-            });
-        });
+        // make teachers
+        Teacher::factory(10)->create();
 
-        SchoolSession::factory()->count(10)->create();
-        SessionTerm::factory()->count(50)->create();
 
-        SubjectCategory::factory()->count(10)->create();
-        Subject::factory()->count(20)->create();
+        // make grades and arms
+        Grade::factory(6)->has(Arm::factory(3))->create();
+
+
+        // make school sessions and terms
+        SchoolSession::factory(6)->has(SessionTerm::factory(3))->create();
+
+
+        SubjectCategory::factory(10)->create();
+        Subject::factory(20)->create();
+
+
+        Student::factory(75)->create();
     }
 }

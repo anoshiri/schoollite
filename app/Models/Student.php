@@ -24,19 +24,20 @@ class Student extends Model
     ];
 
     protected $casts = [
-        'date_of_birth' => 'date'
+        'date_of_birth' => 'date',
+        'photos' => 'array'
     ];
 
 
     public function grades()
     {
-        return $this->belongsToMany(Grade::class);
+        return $this->belongsToManyThrough(Grade::class, Arm::class);
     }
 
 
     public function arms()
     {
-        return $this->belongsToMany(Arm::class, 'arm_student', 'student_id', 'arm_id');
+        return $this->belongsToMany(Arm::class);
     }
 
 
@@ -66,7 +67,7 @@ class Student extends Model
     protected function birthDay(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => date('d M', $attributes['date_of_birth']),
+            get: fn ($value, $attributes) => Carbon::parse($attributes['date_of_birth'])->format('M d'),
         );
     }
 
@@ -78,7 +79,7 @@ class Student extends Model
     protected function age(): Attribute
     {
         return Attribute::make(
-            get: fn ($value, $attributes) => Carbon::parse($attributes['date_of_birth'])->diffInYears(),
+            get: fn ($value, $attributes) => Carbon::parse($attributes['date_of_birth'])->diffInYears(Carbon::today()),
         );
     }
 }

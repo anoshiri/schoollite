@@ -11,6 +11,8 @@ class SessionTerm extends Model
 
     protected $fillable = ['name', 'school_session_id', 'start_date', 'end_date'];
 
+
+    
     public function schoolSession()
     {
         return $this->belongsTo(SchoolSession::class, 'school_session_id');

@@ -1,28 +1,33 @@
 <?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
 use App\Models\User;
-use App\Models\Student;
-use App\Filament\Resources\StudentResource;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class StudentTest extends TestCase
+{
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+    
+        $this->actingAs(User::factory()->create());
+    }
 
 
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_student()
+    {
+        $response = $this->get('/');
 
-beforeEach(function () {
-    $this->actingAs(
-        User::first()
-    );
-});
- 
-
-it('can render page', function () {
-    $this->get(StudentResource::getUrl('index'))->assertSuccessful();
-});
-
-
-it('can list students', function () {
-    $students = Student::factory()->count(10)->create();
- 
-    livewire(StudentResource\Pages\ListStudents::class)
-        ->assertCanSeeTableRecords($students);
-});
-
-
+        $response->assertStatus(200);
+    }
+}

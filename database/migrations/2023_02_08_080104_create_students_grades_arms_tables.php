@@ -33,10 +33,7 @@ class CreateStudentsGradesArmsTables extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->timestamps();
-
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
         });
 
         Schema::create('arms', function (Blueprint $table) {
@@ -44,8 +41,10 @@ class CreateStudentsGradesArmsTables extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('grade_id')->nullable();
+            $table->unsignedBigInteger('teacher_id')->nullable();
             $table->timestamps();
 
+            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade');
         });
 

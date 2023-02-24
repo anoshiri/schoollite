@@ -22,7 +22,7 @@ class SessionTermFactory extends Factory
 
         return [
             'name' => $this->faker->sentence(),
-            'school_session_id' => $session->id,
+            //'school_session_id' => $session->id,
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),
         ];

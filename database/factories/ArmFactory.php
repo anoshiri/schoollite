@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,12 @@ class ArmFactory extends Factory
      */
     public function definition()
     {
+        $teacher = Teacher::inRandomOrder()->first();
+
         return [
-            'name' => fake()->name(),
+            'name' => fake()->safeColorName(),
             'description' => fake()->sentence(),
+            'teacher_id' => $teacher->id,
         ];
     }
 }

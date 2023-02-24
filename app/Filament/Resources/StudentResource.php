@@ -23,31 +23,41 @@ class StudentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('first_name'),
+                Forms\Components\TextInput::make('first_name')
+                    ->required()
+                    ->maxLength(255),
 
-	            Forms\Components\TextInput::make('last_name'),
+                Forms\Components\TextInput::make('last_name')
+                    ->required()
+                    ->maxLength(255),
 
-	            Forms\Components\Radio::make('gender')
-                    ->options([
-                        'male' => 'Male',
-                        'female' => 'Female'
-                    ]),
+                Forms\Components\TextInput::make('gender')
+                    ->required()
+                    ->maxLength(255),
 
-	            Forms\Components\TextInput::make('date_of_birth')
-                    ->date(),
+                Forms\Components\DatePicker::make('date_of_birth'),
 
-	            Forms\Components\TextInput::make('email')
-                    ->email(),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
 
-	            Forms\Components\TextInput::make('street'),
+                Forms\Components\TextInput::make('current_arm_id'),
 
-	            Forms\Components\TextInput::make('city'),
+                Forms\Components\TextInput::make('street')
+                    ->maxLength(255),
 
-	            Forms\Components\TextInput::make('state'),
+                Forms\Components\TextInput::make('city')
+                    ->maxLength(255),
 
-	            Forms\Components\Boolean::make('status'),
+                Forms\Components\TextInput::make('state')
+                    ->maxLength(255),
 
+                Forms\Components\Textarea::make('photos')
+                    ->maxLength(65535),
 
+                Forms\Components\Toggle::make('status')
+                    ->required(),
             ]);
     }
 
@@ -55,13 +65,25 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('fullName'),
+                Tables\Columns\TextColumn::make('full_name')
+                    ->sortable()->searchable(),
 
-	            Tables\Columns\TextColumn::make('birth_day'),
+                Tables\Columns\TextColumn::make('gender')
+                    ->sortable()->searchable(),
 
-                Tables\Columns\TextColumn::make('age'),
+                Tables\Columns\TextColumn::make('age')
+                    ->date()
+                    ->sortable()->searchable(),
 
-	            Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('birth_day')
+                ->sortable()->searchable(),
+
+                Tables\Columns\TextColumn::make('current_arm_id')
+                    ->sortable()->searchable(),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->sortable()->searchable()
+                    ->dateTime(),
             ])
             ->filters([
                 //

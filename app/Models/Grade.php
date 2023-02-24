@@ -25,7 +25,7 @@ class Grade extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsToManyThrough(Student::class, Arm::class);
     }
 
 

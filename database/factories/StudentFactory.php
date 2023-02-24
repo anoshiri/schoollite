@@ -16,12 +16,20 @@ class StudentFactory extends Factory
      */
     public function definition()
     {
+        // make images
+        $images = [];
+        $tot = rand(1, 6);
+        for ($count=0; $count < $tot; $count++) {
+            array_push($images, $this->faker->imageUrl(500, 500));
+        }
+
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'gender' => fake()->randomElement(['male', 'female']),
             'date_of_birth' => fake()->date(),
+            'photos' => $images,
         ];
     }
 }

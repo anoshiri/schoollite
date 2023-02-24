@@ -26,4 +26,8 @@ class Arm extends Pivot
     {
         return $this->belongsToMany(Student::class, 'arm_student', 'arm_id', 'student_id');
     }
+
+    public function teacher() {
+        return $this->belongsTo(Teacher::class);
+    }
 }
