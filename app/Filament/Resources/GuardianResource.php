@@ -106,5 +106,5 @@ class GuardianResource extends Resource
             'create' => Pages\CreateGuardian::route('/create'),
             'edit' => Pages\EditGuardian::route('/{record}/edit'),
         ];
-    }    
+    }
 }

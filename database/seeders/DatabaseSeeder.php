@@ -9,6 +9,7 @@ use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Teacher;
+use App\Models\Guardian;
 use App\Models\SessionTerm;
 use App\Models\SchoolSession;
 use App\Models\SubjectCategory;
@@ -46,6 +47,6 @@ class DatabaseSeeder extends Seeder
         Subject::factory(20)->create();
 
 
-        Student::factory(75)->create();
+        Student::factory(75)->has(Guardian::factory(2))->create();
     }
 }
