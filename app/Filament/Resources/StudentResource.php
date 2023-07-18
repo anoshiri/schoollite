@@ -17,6 +17,10 @@ class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
+    protected static ?string $pluralModelLabel = 'Students';
+    protected static ?string $navigationLabel = 'Students';
+    protected static ?string $navigationGroup = 'Profiles';
+
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
@@ -53,8 +57,18 @@ class StudentResource extends Resource
                 Forms\Components\TextInput::make('state')
                     ->maxLength(255),
 
-                Forms\Components\Textarea::make('photos')
-                    ->maxLength(65535),
+                Forms\Components\FileUpload::make('photos')
+                    ->image()
+                    ->multiple()
+                    ->enableReordering()
+                    ->imageCropAspectRatio('1:1')
+                    ->maxSize(512)
+                    ->imageResizeMode('cover')
+                    ->imageResizeTargetWidth('500')
+                    ->imageResizeTargetHeight('500')
+                    ->disk('local')
+                    ->directory('public/students')
+                    ->helperText('Recommended size is 500px x 500px'),
 
                 Forms\Components\Toggle::make('status')
                     ->required(),

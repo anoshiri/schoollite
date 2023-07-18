@@ -24,7 +24,7 @@ class TeacherFactory extends Factory
         $images = [];
         $tot = rand(1, 6);
         for ($count=0; $count < $tot; $count++) {
-            array_push($images, $this->faker->imageUrl(500, 500));
+            array_push($images, $this->faker->image(null, 500, 500, 'people'));
         }
 
 

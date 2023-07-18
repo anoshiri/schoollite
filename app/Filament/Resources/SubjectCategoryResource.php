@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SchoolSessionResource\Pages;
-use App\Filament\Resources\SchoolSessionResource\RelationManagers;
-use App\Models\SchoolSession;
+use App\Filament\Resources\SubjectCategoryResource\Pages;
+use App\Filament\Resources\SubjectCategoryResource\RelationManagers;
+use App\Models\SubjectCategory;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,12 +13,12 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SchoolSessionResource extends Resource
+class SubjectCategoryResource extends Resource
 {
-    protected static ?string $model = SchoolSession::class;
+    protected static ?string $model = SubjectCategory::class;
 
-    protected static ?string $pluralModelLabel = 'School Sessions';
-    protected static ?string $navigationLabel = 'School Sessions';
+    protected static ?string $pluralModelLabel = 'Subject Groups';
+    protected static ?string $navigationLabel = 'Subject Groups';
     protected static ?string $navigationGroup = 'Manage';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
@@ -30,12 +30,6 @@ class SchoolSessionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-
-                Forms\Components\DatePicker::make('start_date')
-                    ->required(),
-
-                Forms\Components\DatePicker::make('end_date')
-                    ->required(),
             ]);
     }
 
@@ -45,16 +39,9 @@ class SchoolSessionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()->searchable(),
-
-                Tables\Columns\TextColumn::make('start_date')
-                    ->sortable()->searchable()
-                    ->date(),
-
-                Tables\Columns\TextColumn::make('end_date')
-                    ->sortable()->searchable()
-                    ->date(),
                     
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->sortable()->searchable()
                     ->dateTime(),
             ])
             ->filters([
@@ -71,16 +58,16 @@ class SchoolSessionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\SessionTermsRelationManager::class,
+            RelationManagers\SubjectsRelationManager::class,
         ];
     }
     
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSchoolSessions::route('/'),
-            'create' => Pages\CreateSchoolSession::route('/create'),
-            'edit' => Pages\EditSchoolSession::route('/{record}/edit'),
+            'index' => Pages\ListSubjectCategories::route('/'),
+            'create' => Pages\CreateSubjectCategory::route('/create'),
+            'edit' => Pages\EditSubjectCategory::route('/{record}/edit'),
         ];
-    }
+    }    
 }

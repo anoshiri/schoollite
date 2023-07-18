@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ArmResource\Pages;
+namespace App\Filament\Resources\GuardianResource\Pages;
 
-use App\Filament\Resources\ArmResource;
+use App\Filament\Resources\GuardianResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditArm extends EditRecord
+class EditGuardian extends EditRecord
 {
-    protected static string $resource = ArmResource::class;
+    protected static string $resource = GuardianResource::class;
 
     protected function getActions(): array
     {

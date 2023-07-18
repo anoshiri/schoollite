@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
 
         $user = User::first();
-        $user->update(['email' => 'admin@admin.com']);
+        $user->update(['email' => 'chuks@ecleaps.com']);
 
         // make teachers
         Teacher::factory(10)->create();

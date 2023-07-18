@@ -1,33 +1,35 @@
 <?php
 
-namespace Tests\Feature;
-
-use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Student;
+use function Pest\Livewire\livewire;
+use App\Filament\Resources\StudentResource;
+use App\Filament\Resources\TeacherResource;
 
-class StudentTest extends TestCase
-{
-    use RefreshDatabase;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-    
-        $this->actingAs(User::factory()->create());
-    }
+beforeEach(function () {
+    $this->actingAs(User::factory()->create());
+});
 
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_student()
-    {
-        $response = $this->get('/');
+it('has student page', function () {
 
-        $response->assertStatus(200);
-    }
-}
+    $user = User::first();
+    actingAs($user)->get(StudentResource::getUrl('index'))->assertSuccessful();
+});
+
+
+
+ 
+it('can list students', function () {
+    $students = Student::factory()->count(10)->create();
+ 
+    livewire(PostResource\Pages\ListStudents::class)
+        ->assertCanSeeTableRecords($students);
+});
+
+
+it('can render page', function () {
+    $this->get(TeacherResource::getUrl('create'))->assertSuccessful();
+});
+
+

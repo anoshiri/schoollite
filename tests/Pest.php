@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Foundation\Auth\User;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -42,7 +44,13 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+/**
+ * Set the currently logged in user for the application.
+ *
+ * @return TestCase
+ */
+function actingAs(User $user, string $driver = null)
 {
-    // ..
+    return test()->actingAs($user, $driver);
 }
+

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TeacherResource\Pages;
-use App\Filament\Resources\TeacherResource\RelationManagers;
-use App\Models\Teacher;
+use App\Filament\Resources\GuardianResource\Pages;
+use App\Filament\Resources\GuardianResource\RelationManagers;
+use App\Models\Guardian;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,12 +13,12 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TeacherResource extends Resource
+class GuardianResource extends Resource
 {
-    protected static ?string $model = Teacher::class;
+    protected static ?string $model = Guardian::class;
 
-    protected static ?string $pluralModelLabel = 'Teachers';
-    protected static ?string $navigationLabel = 'Teachers';
+    protected static ?string $pluralModelLabel = 'Guardians';
+    protected static ?string $navigationLabel = 'Guardians';
     protected static ?string $navigationGroup = 'Profiles';
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
@@ -38,8 +38,6 @@ class TeacherResource extends Resource
                 Forms\Components\TextInput::make('gender')
                     ->required()
                     ->maxLength(255),
-
-                Forms\Components\DatePicker::make('date_of_birth'),
 
                 Forms\Components\TextInput::make('email')
                     ->email()
@@ -65,7 +63,7 @@ class TeacherResource extends Resource
                     ->imageResizeTargetWidth('500')
                     ->imageResizeTargetHeight('500')
                     ->disk('local')
-                    ->directory('public/teachers')
+                    ->directory('public/Guardians')
                     ->helperText('Recommended size is 500px x 500px'),
 
                 Forms\Components\Toggle::make('status')
@@ -79,9 +77,7 @@ class TeacherResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('fullName'),
 
-	            Tables\Columns\TextColumn::make('birth_day'),
-
-                Tables\Columns\TextColumn::make('age'),
+                Tables\Columns\TextColumn::make('city'),
 
 	            Tables\Columns\TextColumn::make('email'),
             ])
@@ -99,16 +95,16 @@ class TeacherResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ArmsRelationManager::class,
+            RelationManagers\StudentsRelationManager::class,
         ];
     }
     
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTeachers::route('/'),
-            'create' => Pages\CreateTeacher::route('/create'),
-            'edit' => Pages\EditTeacher::route('/{record}/edit'),
+            'index' => Pages\ListGuardians::route('/'),
+            'create' => Pages\CreateGuardian::route('/create'),
+            'edit' => Pages\EditGuardian::route('/{record}/edit'),
         ];
     }    
 }

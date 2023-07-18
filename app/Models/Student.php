@@ -41,6 +41,12 @@ class Student extends Model
     }
 
 
+    public function guardians()
+    {
+        return $this->belongsToMany(Guardian::class);
+    }
+
+
     public function currentArm()
     {
         return $this->belongsTo(Arm::class, 'current_arm_id');
@@ -59,6 +65,7 @@ class Student extends Model
         );
     }
 
+    
     /**
      * Interact with the user's first name.
      *

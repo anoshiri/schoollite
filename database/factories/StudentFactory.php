@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,8 +20,17 @@ class StudentFactory extends Factory
         // make images
         $images = [];
         $tot = rand(1, 6);
+
+        
         for ($count=0; $count < $tot; $count++) {
-            array_push($images, $this->faker->imageUrl(500, 500));
+            $uploadedFile = $this->faker->image(null, 500, 500, 'people');
+
+            $fileName = explode('/', str_replace('\\', '/', $uploadedFile));
+            $file = 'public/students/'. end($fileName);
+
+            Storage::move($uploadedFile, $file);
+            
+            array_push($images, $file);
         }
 
         return [
