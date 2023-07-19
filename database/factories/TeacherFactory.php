@@ -21,10 +21,12 @@ class TeacherFactory extends Factory
     {
 
         // make images
+        // make images
+        $dir = base_path('storage/teachers');
         $images = [];
-        $tot = rand(1, 6);
+        $tot = rand(1, 2);
         for ($count=0; $count < $tot; $count++) {
-            array_push($images, $this->faker->image(null, 500, 500, 'people'));
+            array_push($images, $this->faker->image($dir, 500, 500, 'people'));
         }
 
 
@@ -34,6 +36,9 @@ class TeacherFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'gender' => fake()->randomElement(['male', 'female']),
             'date_of_birth' => fake()->date(),
+            'street' => fake()->streetAddress(),
+            'city' => fake()->city(),
+            'state' => fake()->state(),
             'photos' => $images,
         ];
     }

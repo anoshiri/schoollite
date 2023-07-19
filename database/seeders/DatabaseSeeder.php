@@ -47,6 +47,6 @@ class DatabaseSeeder extends Seeder
         Subject::factory(20)->create();
 
 
-        Student::factory(75)->has(Guardian::factory(2))->create();
+        Student::factory(25)->has(Guardian::factory(2))->create();
     }
 }
